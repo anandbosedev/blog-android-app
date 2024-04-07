@@ -1,3 +1,6 @@
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -21,9 +24,34 @@ android {
         }
     }
 
+    signingConfigs {
+        getByName("debug") {
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+            storeFile = File(rootDir, "keystore/debug.jks")
+            storePassword = "android"
+        }
+
+        create("release") {
+            val propsFile = File(rootDir, "keystore/release/credentials.json")
+            if (propsFile.exists() && propsFile.canRead()) {
+                val propsFileContents = propsFile.readBytes().toString(Charsets.UTF_8)
+                val gson = Gson()
+                val json = gson.fromJson(propsFileContents, JsonObject::class.java)
+                keyPassword = json.get("keypassword").asString
+                keyAlias = json.get("alias").asString
+                storePassword = json.get("storepassword").asString
+                storeFile = File(rootDir, "keystore/release/releasekey.jks")
+            }
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig = signingConfigs["debug"]
+        }
         release {
-            isMinifyEnabled = false
+            signingConfig = signingConfigs["release"]
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
