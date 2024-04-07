@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.ktor.contentNegotiation)
     implementation(libs.ktor.contentNegotiation.json)
     implementation(libs.jetbrains.kotlin.serialization.json)
+    implementation(libs.koil)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

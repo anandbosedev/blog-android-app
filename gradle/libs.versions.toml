@@ -35,6 +35,7 @@ ktor-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor"}
 ktor-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor"}
 ktor-contentNegotiation-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor"}
 jetbrains-kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.6.3" }
+koil = { group = "io.coil-kt", name = "coil-compose", version = "2.6.0" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

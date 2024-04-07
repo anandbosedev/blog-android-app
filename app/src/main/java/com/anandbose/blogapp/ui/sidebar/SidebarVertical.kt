@@ -34,6 +34,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.anandbose.blogapp.R
 import com.anandbose.blogapp.ui.theme.AnandsBlogTheme
 
@@ -61,8 +62,9 @@ fun SidebarVertical(
                     )
             ) {
                 Spacer(modifier = Modifier.height(16.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                AsyncImage(
+                    model = "https://github.com/anandbosedev.png",
+                    placeholder = painterResource(id = R.drawable.ic_launcher_background),
                     contentDescription = "",
                     modifier = Modifier
                         .size(80.dp)
