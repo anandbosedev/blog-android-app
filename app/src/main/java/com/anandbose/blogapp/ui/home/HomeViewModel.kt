@@ -8,7 +8,6 @@ import com.anandbose.blogapp.data.BlogEntryData
 import com.anandbose.blogapp.data.RequestState
 import com.anandbose.blogapp.repo.BlogRepository
 import com.anandbose.blogapp.repo.WebBlogRepository
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -9,7 +9,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.anandbose.blogapp.ui.home.HomeScreen
-import kotlinx.coroutines.launch
 
 @Composable
 fun Navigator(

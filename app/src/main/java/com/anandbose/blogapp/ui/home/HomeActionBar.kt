@@ -1,8 +1,6 @@
 package com.anandbose.blogapp.ui.home
 
-import android.app.usage.ConfigurationStats
 import android.content.res.Configuration
-import android.view.Window
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
