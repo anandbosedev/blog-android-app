@@ -1,11 +1,8 @@
 package com.anandbose.blogapp.ui.sidebar
 
-import android.view.WindowInsets.Side
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +23,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,92 +47,96 @@ fun SidebarVertical(
             .fillMaxHeight(),
         color = MaterialTheme.colorScheme.background,
     ) {
-        val scrollState = rememberScrollState()
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(WindowInsets.systemBars.asPaddingValues())
-                .padding(horizontal = 16.dp)
-                .verticalScroll(
-                    state = scrollState,
-                )
-        ) {
-            Spacer(modifier = Modifier.height(16.dp))
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
-                contentDescription = "",
+        Row {
+            val scrollState = rememberScrollState()
+            Column(
                 modifier = Modifier
-                    .size(80.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Anand's Blog",
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.fillMaxWidth(),
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Row(
-                modifier = Modifier
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.outlineVariant,
-                        shape = CircleShape
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .padding(WindowInsets.systemBars.asPaddingValues())
+                    .padding(horizontal = 16.dp)
+                    .verticalScroll(
+                        state = scrollState,
                     )
-                    .padding(vertical = 4.dp, horizontal = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
             ) {
+                Spacer(modifier = Modifier.height(16.dp))
                 Image(
-                    painter = painterResource(id = R.drawable.open_external_link),
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
                     contentDescription = "",
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier
+                        .size(80.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop,
                 )
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "anandbose.dev",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.primary,
+                    text = "Anand's Blog",
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Row(
+                    modifier = Modifier
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.outlineVariant,
+                            shape = CircleShape
+                        )
+                        .padding(vertical = 4.dp, horizontal = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.open_external_link),
+                        contentDescription = "",
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "anandbose.dev",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                }
+                Spacer(modifier = Modifier.height(32.dp))
+                Text(
+                    text = "LINKS",
+                    color = MaterialTheme.colorScheme.secondary,
+                    style = MaterialTheme.typography.labelMedium,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                SidebarItem(
+                    icon = painterResource(id = R.drawable.icon_github),
+                    text = "GitHub",
+                    onClick = { onLinkClicked(SidebarLink.GitHub) }
+                )
+                SidebarItem(
+                    icon = painterResource(id = R.drawable.icon_mastodon),
+                    text = "Mastodon",
+                    onClick = { onLinkClicked(SidebarLink.Mastodon) }
+                )
+                SidebarItem(
+                    icon = painterResource(id = R.drawable.icon_linkedin),
+                    text = "LinkedIn",
+                    onClick = { onLinkClicked(SidebarLink.LinkedIn) }
+                )
+                SidebarItem(
+                    icon = painterResource(id = R.drawable.icon_rss),
+                    text = "Feed",
+                    onClick = { onLinkClicked(SidebarLink.Feed) }
+                )
+                Spacer(modifier = Modifier.height(32.dp))
+                SidebarItem(
+                    text = "Terms and Conditions",
+                    isExternal = true,
+                    onClick = { onLinkClicked(SidebarLink.TermsAndConditions) }
+                )
+                SidebarItem(
+                    text = "Privacy Policy",
+                    isExternal = true,
+                    onClick = { onLinkClicked(SidebarLink.PrivacyPolicy) }
                 )
             }
-            Spacer(modifier = Modifier.height(32.dp))
-            Text(
-                text = "LINKS",
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.labelMedium,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            SidebarItem(
-                icon = painterResource(id = R.drawable.icon_github),
-                text = "GitHub",
-                onClick = { onLinkClicked(SidebarLink.GitHub) }
-            )
-            SidebarItem(
-                icon = painterResource(id = R.drawable.icon_mastodon),
-                text = "Mastodon",
-                onClick = { onLinkClicked(SidebarLink.Mastodon) }
-            )
-            SidebarItem(
-                icon = painterResource(id = R.drawable.icon_linkedin),
-                text = "LinkedIn",
-                onClick = { onLinkClicked(SidebarLink.LinkedIn) }
-            )
-            SidebarItem(
-                icon = painterResource(id = R.drawable.icon_rss),
-                text = "Feed",
-                onClick = { onLinkClicked(SidebarLink.Feed) }
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-            SidebarItem(
-                text = "Terms and Conditions",
-                isExternal = true,
-                onClick = { onLinkClicked(SidebarLink.TermsAndConditions) }
-            )
-            SidebarItem(
-                text = "Privacy Policy",
-                isExternal = true,
-                onClick = { onLinkClicked(SidebarLink.PrivacyPolicy) }
-            )
+            VerticalDivider()
         }
     }
 }

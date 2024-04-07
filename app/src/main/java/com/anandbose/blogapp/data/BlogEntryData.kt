@@ -9,4 +9,5 @@ data class BlogEntryData(
     @SerialName("description") val description: String,
     @SerialName("pubdate") val publishedDate: String,
     @SerialName("link") val link: String,
+    @SerialName("image") val image: String?,
 )
