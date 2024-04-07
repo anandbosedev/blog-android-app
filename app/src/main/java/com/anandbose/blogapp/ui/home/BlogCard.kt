@@ -3,6 +3,7 @@ package com.anandbose.blogapp.ui.home
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,10 +28,12 @@ import com.anandbose.blogapp.ui.theme.AnandsBlogTheme
 @Composable
 fun BlogCard(
     data: BlogEntryData,
-    modifier: Modifier = Modifier
+    onClicked: (BlogEntryData) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Surface(
         modifier = modifier
+            .clickable { onClicked(data) }
             .border(
                 width = 1.dp,
                 shape = RoundedCornerShape(size = 16.dp),
@@ -70,7 +73,10 @@ fun BlogCard(
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                text = data.publishedDate,
+                text = data.publishedDate
+                    .split(" ")
+                    .subList(0, 4)
+                    .joinToString(separator = " "),
                 color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.bodySmall,
             )
@@ -86,6 +92,7 @@ fun BlogCard(
 fun BlogCardPreview() {
     AnandsBlogTheme {
         BlogCard(
+            onClicked = {},
             data = BlogEntryData(
                 title = "Rethinking the state of localization in Jetpack Compose — A Kotlin-first approach to localization",
                 description = "Rethinking the state of localization in Jetpack Compose — A Kotlin-first approach to localization",
@@ -104,6 +111,7 @@ fun BlogCardPreview() {
 fun BlogCardPreviewNight() {
     AnandsBlogTheme {
         BlogCard(
+            onClicked = {},
             data = BlogEntryData(
                 title = "Rethinking the state of localization in Jetpack Compose — A Kotlin-first approach to localization",
                 description = "Rethinking the state of localization in Jetpack Compose — A Kotlin-first approach to localization",

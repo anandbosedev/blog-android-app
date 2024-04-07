@@ -80,6 +80,7 @@ fun SidebarVertical(
                 Spacer(modifier = Modifier.height(4.dp))
                 Row(
                     modifier = Modifier
+                        .clickable { onLinkClicked(SidebarLink.Website) }
                         .border(
                             width = 1.dp,
                             color = MaterialTheme.colorScheme.outlineVariant,

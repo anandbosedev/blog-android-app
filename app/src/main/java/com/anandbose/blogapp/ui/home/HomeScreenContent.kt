@@ -1,6 +1,8 @@
 package com.anandbose.blogapp.ui.home
 
+import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,6 +50,7 @@ fun HomeScreenContent(
 
         state.list?.let { entries ->
             val gridState = rememberLazyStaggeredGridState()
+            val context = LocalContext.current
             LazyVerticalStaggeredGrid(
                 modifier = Modifier.fillMaxSize(),
                 state = gridState,
@@ -58,7 +62,22 @@ fun HomeScreenContent(
                 items(
                     items = entries
                 ) {
-                    BlogCard(data = it)
+                    BlogCard(
+                        data = it,
+                        onClicked = {
+                            try {
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(it.link)
+                                context.startActivity(
+                                    Intent(
+                                        Intent.createChooser(intent, "")
+                                    )
+                                )
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    )
                 }
             }
         }
