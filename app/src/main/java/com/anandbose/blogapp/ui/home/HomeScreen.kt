@@ -28,5 +28,8 @@ fun HomeScreen(
             windowSizeClass = windowSizeClass,
             onMenuClicked = onMenuClicked,
         )
+        HomeScreenContent(
+            modifier = Modifier.weight(1f)
+        )
     }
 }

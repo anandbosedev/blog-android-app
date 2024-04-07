@@ -42,7 +42,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 requestState = RequestState.Loading
                 _stateFlow.emit(buildState())
-                delay(3000L)
                 blogList = repository.getBlogEntries()
                 requestState = RequestState.Success
                 _stateFlow.emit(buildState())
