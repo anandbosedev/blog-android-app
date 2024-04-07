@@ -4,12 +4,15 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -70,7 +73,16 @@ fun HomeScreenContent(
                 )
             }
             RequestState.Success -> {}
-            RequestState.Error -> {}
+            RequestState.Error -> {
+                ErrorComponent(
+                    modifier = Modifier.align(Alignment.Center),
+                    title = "Error",
+                    description = "Unable to reach the servers right now.",
+                    onRetryCallback = {
+                        viewModel.fetch()
+                    }
+                )
+            }
         }
     }
 }

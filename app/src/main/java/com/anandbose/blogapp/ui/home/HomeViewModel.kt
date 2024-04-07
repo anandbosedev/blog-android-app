@@ -46,6 +46,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 _stateFlow.emit(buildState())
             } catch (e: Exception) {
                 e.printStackTrace()
+                requestState = RequestState.Error
                 error = e
                 _stateFlow.emit(buildState())
             }
