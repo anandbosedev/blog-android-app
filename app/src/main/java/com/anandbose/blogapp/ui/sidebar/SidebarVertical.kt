@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -88,7 +89,10 @@ fun SidebarVertical(
                     Image(
                         painter = painterResource(id = R.drawable.open_external_link),
                         contentDescription = "",
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(20.dp),
+                        colorFilter = ColorFilter.tint(
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
@@ -159,7 +163,10 @@ fun SidebarItem(
             Image(
                 modifier = Modifier.size(24.dp),
                 painter = icon,
-                contentDescription = text
+                contentDescription = text,
+                colorFilter = ColorFilter.tint(
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
             )
         }
         Text(
@@ -174,7 +181,10 @@ fun SidebarItem(
             Image(
                 modifier = Modifier.size(16.dp),
                 painter = painterResource(id = R.drawable.open_external_link),
-                contentDescription = text
+                contentDescription = text,
+                colorFilter = ColorFilter.tint(
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
             )
         }
     }

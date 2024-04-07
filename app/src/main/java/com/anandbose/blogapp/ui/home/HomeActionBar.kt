@@ -1,5 +1,7 @@
 package com.anandbose.blogapp.ui.home
 
+import android.app.usage.ConfigurationStats
+import android.content.res.Configuration
 import android.view.Window
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,6 +21,7 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -69,10 +72,14 @@ fun HomeActionBarWithMenu(
                 .clickable { onMenuClicked() }
                 .padding(8.dp),
             painter = painterResource(id = R.drawable.icon_menu),
-            contentDescription = "Menu"
+            contentDescription = "Menu",
+            colorFilter = ColorFilter.tint(
+                color = MaterialTheme.colorScheme.onBackground,
+            )
         )
         Text(
             text = "Anand's Blog",
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier
                 .weight(1f)
                 .padding(horizontal = 8.dp)
@@ -83,6 +90,14 @@ fun HomeActionBarWithMenu(
 @Preview
 @Composable
 fun HomeActionBarWithMenuPreview() {
+    AnandsBlogTheme {
+        HomeActionBarWithMenu(onMenuClicked = { /*TODO*/ })
+    }
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun HomeActionBarWithMenuPreviewNight() {
     AnandsBlogTheme {
         HomeActionBarWithMenu(onMenuClicked = { /*TODO*/ })
     }
@@ -101,6 +116,7 @@ fun HomeActionBarWithoutMenu(
     ) {
         Text(
             text = "Anand's Blog",
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier
                 .weight(1f)
                 .padding(horizontal = 16.dp)
@@ -111,6 +127,14 @@ fun HomeActionBarWithoutMenu(
 @Composable
 @Preview
 fun HomeActionBarWithoutMenuPreview() {
+    AnandsBlogTheme {
+        HomeActionBarWithoutMenu()
+    }
+}
+
+@Composable
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+fun HomeActionBarWithoutMenuPreviewNight() {
     AnandsBlogTheme {
         HomeActionBarWithoutMenu()
     }
