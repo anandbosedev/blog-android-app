@@ -1,0 +1,32 @@
+name: Build assembleDebug
+on:
+    push:
+        branches: [ main ]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        container:
+            image: anandbose16/android-sdk:34
+            env:
+                GRADLE_USER_HOME: /var/gradle
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/cache@v4
+              with:
+                path: |
+                  /var/gradle
+                key: ${{ runner.os }}-build-${{ hashFiles('cache-id') }}
+                restore-keys: |
+                  ${{ runner.os }}-build-${{ hashFiles('cache-id') }}
+                  ${{ runner.os }}-build-
+                  ${{ runner.os }}-
+            - name: Build and lint
+              run: gradle --build-cache --configuration-cache --parallel clean :app:assembleDebug :app:lintDebug
+            - uses: actions/upload-artifact@v4
+              with:
+                name: build
+                path: app/build/outputs/apk/debug/app-debug.apk
+            - uses: actions/upload-artifact@v4
+              with:
+                name: reports
+                path: app/build/reports
