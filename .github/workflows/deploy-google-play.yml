@@ -24,10 +24,8 @@ jobs:
             ${{ runner.os }}-release-
             ${{ runner.os }}-
       - name: Extract Secrets
-        env:
-          DEPLOYMENT_CREDS_DECRYPTION_KEY: ${{ secrets.DEPLOYMENT_CREDS_DECRYPTION_KEY }}
         run: |
-          gpg --quiet --batch --yes --decrypt --passphrase="$DEPLOYMENT_CREDS_DECRYPTION_KEY" --output deployment-keys.tar.zstd deployment-keys.tar.zstd.gpg
+          gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.DEPLOYMENT_CREDS_DECRYPTION_KEY }}" --output deployment-keys.tar.zstd deployment-keys.tar.zstd.gpg
           tar xvf deployment-keys.tar.zstd.gpg
       - name: Build Signed App Bundle
         run: gradle --build-cache --configuration-cache --parallel clean :app:bundleRelease
