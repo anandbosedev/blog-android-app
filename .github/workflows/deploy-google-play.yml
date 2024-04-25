@@ -26,7 +26,7 @@ jobs:
       - name: Extract Secrets
         run: |
           gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.DEPLOYMENT_CREDS_DECRYPTION_KEY }}" --output deployment-keys.tar.zstd deployment-keys.tar.zstd.gpg
-          tar xvf deployment-keys.tar.zstd.gpg
+          tar xvf deployment-keys.tar.zstd
       - name: Build Signed App Bundle
         run: gradle --build-cache --configuration-cache --parallel clean :app:bundleRelease
       - name: Setup gplayup
