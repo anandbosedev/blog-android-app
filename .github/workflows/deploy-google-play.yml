@@ -1,0 +1,44 @@
+name: Deploy to Google Play
+on:
+  push:
+    tags:
+      - v*
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: anandbose16/android-sdk:34
+      env:
+        GRADLE_USER_HOME: /var/gradle
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            /var/gradle
+          key: ${{ runner.os }}-release-${{ hashFiles('gradle/libs.versions.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-release-${{ hashFiles('gradle/libs.versions.toml') }}
+            ${{ runner.os }}-release-
+            ${{ runner.os }}-
+      - name: Extract Secrets
+        env:
+          DEPLOYMENT_CREDS_DECRYPTION_KEY: ${{ secrets.DEPLOYMENT_CREDS_DECRYPTION_KEY }}
+        run: |
+          gpg --decrypt --output deployment-keys.tar.zstd --passphrase "$DEPLOYMENT_CREDS_DECRYPTION_KEY" deployment-keys.tar.zstd.gpg
+          tar xvf deployment-keys.tar.zstd.gpg
+      - name: Build Signed App Bundle
+        run: gradle --build-cache --configuration-cache --parallel clean :app:bundleRelease
+      - name: Setup gplayup
+        run: |
+          curl --location 'https://github.com/anandbosedev/gplayup/releases/download/v1.0.0/gplayup-1.0.0.tar' -o gplayup.tar
+          tar xvf gplayup.tar
+      - name: Upload to Google Play with gplayup tool
+        run: |
+          ./gplayup-1.0.0/bin/gplayup \
+          --service-account ./pc-api-7435836948364980037-995-7caf1aa2f08e.json \
+          --application-name com.anandbose.blogapp \
+          --bundle-path ./app/build/outputs/bundle/release/app-release.aab \
+          --track production
