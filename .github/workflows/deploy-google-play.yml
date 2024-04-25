@@ -27,7 +27,7 @@ jobs:
         env:
           DEPLOYMENT_CREDS_DECRYPTION_KEY: ${{ secrets.DEPLOYMENT_CREDS_DECRYPTION_KEY }}
         run: |
-          gpg --decrypt --output deployment-keys.tar.zstd --passphrase "$DEPLOYMENT_CREDS_DECRYPTION_KEY" deployment-keys.tar.zstd.gpg
+          gpg --quiet --batch --yes --decrypt --passphrase="$DEPLOYMENT_CREDS_DECRYPTION_KEY" --output deployment-keys.tar.zstd deployment-keys.tar.zstd.gpg
           tar xvf deployment-keys.tar.zstd.gpg
       - name: Build Signed App Bundle
         run: gradle --build-cache --configuration-cache --parallel clean :app:bundleRelease
