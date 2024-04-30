@@ -15,8 +15,8 @@ android {
         applicationId = "com.anandbose.blogapp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 10
-        versionName = "1.0.2"
+        versionCode = 12
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
